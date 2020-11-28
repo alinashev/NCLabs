@@ -2,8 +2,7 @@ package ua.edu.sumdu.j2se.alina.tasks;
 
 import java.util.Arrays;
 
-public class ArrayTaskList {
-
+public class ArrayTaskList  {
     private Task [] tasksList = {};
 
     public void add(Task task){
@@ -41,7 +40,9 @@ public class ArrayTaskList {
     public Task getTask(int index){
         if(index < tasksList.length && index >= 0) {
             return tasksList[index];
-        }else return null;
+        }else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public ArrayTaskList incoming(int from, int to){
@@ -53,4 +54,5 @@ public class ArrayTaskList {
         }
         return subtasksList;
     }
+
 }
