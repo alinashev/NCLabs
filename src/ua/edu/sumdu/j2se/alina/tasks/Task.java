@@ -10,9 +10,13 @@ public class Task {
     private boolean noRepeated;
 
     public Task(String title, int time){
-        this.title = title;
-        this.time = time;
-        noRepeated = true;
+        if(time >= 0) {
+            this.title = title;
+            this.time = time;
+            noRepeated = true;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     public Task(String title, int start, int end, int interval){
@@ -38,7 +42,9 @@ public class Task {
         this.active = active;
     }
 
-    public int getTime(){
+//Задача, что не поторяется
+
+    public int getTime() {
         if(isRepeated()) return start;
         else return time;
     }
@@ -48,6 +54,7 @@ public class Task {
         if(isRepeated()) noRepeated = true;
     }
 
+    //Задача, что повторяется
     public int getStartTime() {
         if(!isRepeated()) return time;
         else return start;
@@ -63,7 +70,7 @@ public class Task {
         else return interval;
     }
 
-    public void setTime(int start, int end, int interval){
+    public void setTime(int start, int end, int interval) {
         this.start = start;
         this.end = end;
         this.interval = interval;
@@ -73,6 +80,7 @@ public class Task {
     public boolean isRepeated(){
         return !noRepeated;
     }
+    /*2*/
 
     public int nextTimeAfter(int current){
         if(!isActive()){
@@ -83,16 +91,18 @@ public class Task {
                     return time;
                 }
                 else return -1;
-            }else{
+            }
+            else{
                 int timeSum = start;
                 while(timeSum <= current){
                     timeSum += interval;
                 }
-                if( timeSum > end){
-                    return -1;
+                if(timeSum > end){
+                    return -1; //Задача уже выполнилась
                 }
-                else return timeSum;
+                else return timeSum;  //Задача еще не выполнилоась
             }
         }
     }
+
 }
