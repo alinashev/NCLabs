@@ -1,10 +1,11 @@
 package ua.edu.sumdu.j2se.alina.tasks;
 
-public class LinkedTaskList{
+public class LinkedTaskList extends AbstractTaskList{
     private Node first;
     private Node last;
     private int size;
 
+    @Override
     public void add(Task task){
         Node newNode = new Node(task);
         if (first == null) {
@@ -20,6 +21,7 @@ public class LinkedTaskList{
         size++;
     }
 
+    @Override
     public boolean remove(Task task) {
         Node current = first;
         Node previous = null;
@@ -46,11 +48,12 @@ public class LinkedTaskList{
         return false;
     }
 
+    @Override
     public int size(){
         return size;
     }
 
-
+    @Override
     public Task getTask(int index){
         Node node = first;
         if (index == 0){
@@ -65,16 +68,6 @@ public class LinkedTaskList{
                 return null;
             }
         }
-    }
-
-    public LinkedTaskList incoming(int from, int to){
-        LinkedTaskList subtasksList = new LinkedTaskList();
-        for (int i = 0; i < subtasksList.size(); i++) {
-            if(getTask(i) != null && getTask(i).nextTimeAfter(from) != -1 && getTask(i).nextTimeAfter(from) <= to){
-                subtasksList.add(getTask(i));
-            }
-        }
-        return subtasksList;
     }
 }
 
