@@ -42,8 +42,6 @@ public class Task {
         this.active = active;
     }
 
-//Задача, что не поторяется
-
     public int getTime() {
         if(isRepeated()) return start;
         else return time;
@@ -54,7 +52,6 @@ public class Task {
         if(isRepeated()) noRepeated = true;
     }
 
-    //Задача, что повторяется
     public int getStartTime() {
         if(!isRepeated()) return time;
         else return start;
@@ -80,7 +77,6 @@ public class Task {
     public boolean isRepeated(){
         return !noRepeated;
     }
-    /*2*/
 
     public int nextTimeAfter(int current){
         if(!isActive()){
@@ -98,11 +94,10 @@ public class Task {
                     timeSum += interval;
                 }
                 if(timeSum > end){
-                    return -1; //Задача уже выполнилась
+                    return -1;
                 }
-                else return timeSum;  //Задача еще не выполнилоась
+                else return timeSum;
             }
         }
     }
-
 }
