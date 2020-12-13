@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2se.alina.tasks;
 
+import java.util.Objects;
+
 public class Node {
     private Task element;
     private Node next;
@@ -7,6 +9,14 @@ public class Node {
 
     public Node(Task element) {
         this.element = element;
+    }
+
+    public Node() {}
+
+    public Node(Task element, Node next, Node previous){
+        this.element = element;
+        this.next = next;
+        this.previous = previous;
     }
 
     public Task getElement() {
@@ -27,5 +37,18 @@ public class Node {
 
     public Node getPrevious() {
         return previous;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node node = (Node) o;
+        return Objects.equals(element, node.element) && Objects.equals(next, node.next) && Objects.equals(previous, node.previous);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(element, next, previous);
     }
 }

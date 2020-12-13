@@ -1,9 +1,20 @@
 package ua.edu.sumdu.j2se.alina.tasks;
 
+import java.util.Iterator;
+import java.util.Objects;
+
 public class LinkedTaskList extends AbstractTaskList{
     private Node first;
     private Node last;
     private int size;
+
+    public Node getFirst() {
+        return first;
+    }
+
+    public Node getLast() {
+        return last;
+    }
 
     @Override
     public void add(Task task){
@@ -69,5 +80,39 @@ public class LinkedTaskList extends AbstractTaskList{
             }
         }
     }
-}
 
+    @Override
+    public Iterator<Task> iterator() {
+        return new LinkedIterator(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LinkedTaskList that = (LinkedTaskList) o;
+        if(this.size() == that.size()){
+            for (int i = 0; i < that.size(); i++){
+                if(!this.getTask(i).equals(that.getTask(i))){
+                    return false;
+                }
+            }
+        }
+        else return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(first, last, size);
+    }
+    @Override
+    public LinkedTaskList clone() {
+        LinkedTaskList linkedTaskList = new LinkedTaskList();
+
+        for(int i = 0; i < size(); i++){
+            linkedTaskList.add(this.getTask(i));
+        }
+        return linkedTaskList;
+    }
+}

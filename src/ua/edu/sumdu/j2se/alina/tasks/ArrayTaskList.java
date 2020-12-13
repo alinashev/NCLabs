@@ -1,8 +1,9 @@
 package ua.edu.sumdu.j2se.alina.tasks;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
-public class ArrayTaskList extends AbstractTaskList {
+public class ArrayTaskList extends AbstractTaskList implements Cloneable {
     private Task [] tasksList = {};
 
     @Override
@@ -47,4 +48,39 @@ public class ArrayTaskList extends AbstractTaskList {
             throw new IndexOutOfBoundsException();
         }
     }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return new ArrayIterator(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArrayTaskList that = (ArrayTaskList) o;
+        return Arrays.equals(tasksList, that.tasksList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(tasksList);
+    }
+
+
+    @Override
+    public ArrayTaskList clone() {
+        ArrayTaskList arrayTaskList = new ArrayTaskList();
+
+        for(int i = 0; i < size(); i++){
+            arrayTaskList.add(this.tasksList[i]);
+        }
+        return arrayTaskList;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
 }
