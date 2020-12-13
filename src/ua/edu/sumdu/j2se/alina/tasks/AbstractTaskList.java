@@ -1,6 +1,6 @@
 package ua.edu.sumdu.j2se.alina.tasks;
 
-public abstract class AbstractTaskList {
+public abstract class AbstractTaskList implements Iterable {
 
     protected abstract void add(Task task);
 
@@ -24,6 +24,15 @@ public abstract class AbstractTaskList {
             }
         }
         return subtasksList;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
