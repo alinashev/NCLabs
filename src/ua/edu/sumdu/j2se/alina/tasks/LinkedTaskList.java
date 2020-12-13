@@ -1,7 +1,10 @@
 package ua.edu.sumdu.j2se.alina.tasks;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class LinkedTaskList extends AbstractTaskList{
     private Node first;
@@ -79,6 +82,15 @@ public class LinkedTaskList extends AbstractTaskList{
                 return null;
             }
         }
+    }
+
+    @Override
+    public Stream<Task> getStream() {
+        List<Task> listOfTask = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            listOfTask.add(this.getTask(i));
+        }
+        return listOfTask.stream();
     }
 
     @Override
