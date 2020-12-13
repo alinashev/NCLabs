@@ -2,6 +2,7 @@ package ua.edu.sumdu.j2se.alina.tasks;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.stream.Stream;
 
 public class ArrayTaskList extends AbstractTaskList implements Cloneable {
     private Task [] tasksList = {};
@@ -47,6 +48,11 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
         }else {
             throw new IndexOutOfBoundsException();
         }
+    }
+
+    @Override
+    public Stream<Task> getStream() {
+        return Arrays.stream(this.tasksList);
     }
 
     @Override
