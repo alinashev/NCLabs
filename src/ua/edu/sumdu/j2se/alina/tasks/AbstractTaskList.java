@@ -14,21 +14,6 @@ public abstract class AbstractTaskList implements Iterable {
 
     public abstract Stream<Task> getStream();
 
-    public final AbstractTaskList incoming(int from, int to){
-        AbstractTaskList subtasksList;
-        if(this.getClass().getSimpleName().equals("ArrayTaskList")){
-            subtasksList = TaskListFactory.createTaskList(ListTypes.type.ARRAY);
-        }
-        else {
-            subtasksList = TaskListFactory.createTaskList(ListTypes.type.LINKED);
-        }
-        getStream().filter(task -> {
-            int nextTime = task.nextTimeAfter(from);
-            return nextTime != -1 && nextTime < to;
-        }).forEach(subtasksList::add);
-        return subtasksList;
-    }
-
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
