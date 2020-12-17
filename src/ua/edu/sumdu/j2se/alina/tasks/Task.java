@@ -1,18 +1,19 @@
 package ua.edu.sumdu.j2se.alina.tasks;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task implements Cloneable{
     private String title;
-    private int time;
-    private int start;
-    private int end;
+    private LocalDateTime time;
+    private LocalDateTime start;
+    private LocalDateTime end;
     private int interval;
     private boolean active;
     private boolean noRepeated;
 
-    public Task(String title, int time){
-        if(time >= 0) {
+    public Task(String title, LocalDateTime time){
+        if(time != null) {
             this.title = title;
             this.time = time;
             noRepeated = true;
@@ -21,7 +22,7 @@ public class Task implements Cloneable{
         }
     }
 
-    public Task(String title, int start, int end, int interval){
+    public Task(String title, LocalDateTime start, LocalDateTime end, int interval){
         this.title = title;
         this.start = start;
         this.end = end;
@@ -44,22 +45,22 @@ public class Task implements Cloneable{
         this.active = active;
     }
 
-    public int getTime(){
+    public LocalDateTime getTime(){
         if(isRepeated()) return start;
         else return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
         if(isRepeated()) noRepeated = true;
     }
 
-    public int getStartTime() {
+    public LocalDateTime getStartTime() {
         if(!isRepeated()) return time;
         else return start;
     }
 
-    public int getEndTime() {
+    public LocalDateTime getEndTime() {
         if(!isRepeated()) return time;
         else return end;
     }
@@ -69,34 +70,41 @@ public class Task implements Cloneable{
         else return interval;
     }
 
-    public void setTime(int start, int end, int interval){
-        this.start = start;
-        this.end = end;
-        this.interval = interval;
-        if(!isRepeated()) noRepeated = false;
+    public void setTime(LocalDateTime start, LocalDateTime end, int interval){
+        if(start == null || end == null){
+            throw new IllegalArgumentException();
+        }else{
+            this.start = start;
+            this.end = end;
+            this.interval = interval;
+            if(!isRepeated()) noRepeated = false;
+        }
     }
 
     public boolean isRepeated(){
         return !noRepeated;
     }
 
-    public int nextTimeAfter(int current){
+    public LocalDateTime nextTimeAfter(LocalDateTime current){
+        if(current == null){
+            throw new IllegalArgumentException();
+        }
         if(!isActive()){
-            return -1;
+            return null;
         }else{
             if(!isRepeated()){
-                if(time > current){
+                if(time.isAfter(current)){
                     return time;
                 }
-                else return -1;
+                else return null;
             }
             else{
-                int timeSum = start;
-                while(timeSum <= current){
-                    timeSum += interval;
+                LocalDateTime timeSum = start;
+                while(!current.isBefore(timeSum)){
+                    timeSum = timeSum.plusSeconds(interval);
                 }
-                if( timeSum > end){
-                    return -1;
+                if(end.isBefore(timeSum)){
+                    return null;
                 }
                 else return timeSum;
             }
