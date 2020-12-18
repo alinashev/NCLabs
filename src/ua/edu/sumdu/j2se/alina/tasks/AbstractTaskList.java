@@ -1,8 +1,9 @@
 package ua.edu.sumdu.j2se.alina.tasks;
 
+import java.io.Serializable;
 import java.util.stream.Stream;
 
-public abstract class AbstractTaskList implements Iterable {
+public abstract class AbstractTaskList implements Iterable, Serializable {
 
     protected abstract void add(Task task);
 
