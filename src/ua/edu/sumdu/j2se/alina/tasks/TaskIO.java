@@ -8,22 +8,29 @@ import java.time.ZoneOffset;
 
 public class TaskIO {
     private static Gson gson = new Gson();
+    private static FileOutputStream fileOutputStream;
+    private static FileInputStream fileInputStream;
 
-    public static void writeBinary(AbstractTaskList tasks, File file){
+    public static void writeBinary(AbstractTaskList tasks, File file) throws IOException {
         try{
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream = new FileOutputStream(file);
             write(tasks,fileOutputStream);
+            fileOutputStream.flush();
         }catch (IOException e){
             e.printStackTrace();
+        }finally {
+            fileOutputStream.close();
         }
     }
 
-    public static void readBinary(AbstractTaskList tasks, File file) {
+    public static void readBinary(AbstractTaskList tasks, File file) throws IOException {
         try {
-            FileInputStream fileInputStream = new FileInputStream(file);
+            fileInputStream = new FileInputStream(file);
             read(tasks,fileInputStream);
         }catch (IOException e){
             e.printStackTrace();
+        }finally {
+            fileInputStream.close();
         }
     }
 
